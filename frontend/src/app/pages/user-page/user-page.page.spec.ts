@@ -24,4 +24,9 @@ describe('UserPagePage', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+    expect(component.loginURL).toContain("/tabs/user-page")
+  });
 });

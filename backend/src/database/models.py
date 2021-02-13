@@ -42,12 +42,16 @@ class Drink(db.Model):
     # the required datatype is [{'color': string, 'name':string, 'parts':number}]
     recipe =  Column(String(180), nullable=False)
 
+    def __init__(self, title, recipe) -> None:
+        self.title = title
+        self.recipe = recipe
+
     '''
     short()
         short form representation of the Drink model
     '''
     def short(self):
-        print(json.loads(self.recipe))
+        print(type(json.loads(self.recipe)))
         short_recipe = [{'color': r['color'], 'parts': r['parts']} for r in json.loads(self.recipe)]
         return {
             'id': self.id,
