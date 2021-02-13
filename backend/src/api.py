@@ -123,8 +123,10 @@ def update_drink(payload, drink_id):
     drink = Drink.query.get(drink_id)
     if(drink is None):
         abort(404)
+    
+    recipe = body.get('recipe', None)
     drink.title = body.get('title', None)
-    drink.recipe = json.dumps(body.get('recipe', None))
+    drink.recipe =  recipe if type(recipe) == str else json.dumps(recipe)
     try:
         drink.update()
         return jsonify({

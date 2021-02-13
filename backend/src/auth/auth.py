@@ -3,11 +3,14 @@ from flask import request, _request_ctx_stack
 from functools import wraps
 from jose import jwt
 from urllib.request import urlopen
+import os
 
+algorithm = ['RS256']
+audience = 'coffeeShop'
 
 AUTH0_DOMAIN = 'coderwithtin.eu.auth0.com'
-ALGORITHMS = ['RS256']
-API_AUDIENCE = 'coffeeShop'
+ALGORITHMS =  algorithm if os.environ.get('ALGORITHMS') is None else [os.environ.get('ALGORITHMS')]
+API_AUDIENCE = audience if os.environ.get('API_AUDIENCE') is None else  os.environ.get('API_AUDIENCE')
 
 # AuthError Exception
 '''
@@ -87,7 +90,7 @@ def check_permissions(permission, payload):
         raise AuthError({
             'code': 'unauthorized',
             'description': 'Permission not found.'
-        }, 403)
+        }, 401)
     return True
 
 '''
